@@ -1,4 +1,5 @@
 
+    
     <!-- Set up the Tabs -->
     <input type="radio" class="sheet-tab sheet-tab1" name="attr_core-tab" value="1" title="Basic Info" checked="true"/> 
     <span class="sheet-tab sheet-tab1" style='line-height: 40px;'>CORE INFO</span>
@@ -272,7 +273,7 @@
                         <td style="width:35px"><button type='roll' name='roll_skill' value='!EML,@{tot-condition},[[1d100]],skill,Condition,Combat Skills'></button></td>
                     
                         <td style="width:220px;text-align:right;font-weight:bold">Riding&nbsp;(<input style=width:30px  type="text" name="attr_riding_tot" value='[[(((@{CS3sb}+@{CS3ss})*@{CS3ml})+@{CS3ug})]]' disabled="true"/>)&nbsp;</td>
-                        <td style="width:35px"><input style=width:35px  type="text" name="attr_CS3sb"  value='0'/></td>
+                        <td style="width:35px"><input style=width:35px  type="text" name="attr_CS3sb"  value='round((@{strength}+@{will}+@{agility}) / 3)'/></td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_CS3ss" value='[[@{CS3ss_h}]]' disabled/><input type="hidden" name="attr_CS3ss_h" value='0'/></td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_CS3ml"  value='0'/></td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_CS3ug" value='0' /></td>
@@ -365,7 +366,7 @@
                         <td style="width:35px"><input style=width:35px;color:#0000ff;text-align:center;  type="text" name="attr_tot-ps1" value='[[@{ps1_tot}-(@{P4})+?{EML|0}]]' disabled="true"/></td>
                         <td style="width:35px"><button type='roll' name='roll_skill' value='!EML,@{tot-ps1},[[1d100]],skill,@{ps1},Physical Skills'></button></td>
                     
-                        <td style="width:220px;text-align:right"><input style=width:150px;text-align:right;font-weight:bold type="text" name="attr_ps2"/>&nbsp;(<input style=width:30px  type="text" name="attr_ps2_tot" value='[[((@{ps2sb}+@{ps2ss})*@{ps2ml})+@{ps2ug})]]' disabled="true"/>)&nbsp;</td>
+                        <td style="width:220px;text-align:right"><input style=width:150px;text-align:right;font-weight:bold type="text" name="attr_ps2"/>&nbsp;(<input style=width:30px  type="text" name="attr_ps2_tot" value='[[(((@{ps2sb}+@{ps2ss})*@{ps2ml})+@{ps2ug})]]' disabled="true"/>)&nbsp;</td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_ps2sb" value='0'/></td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_ps2ss" value='[[@{ps2ss_h}]]' disabled/><input type="hidden" name="attr_ps2ss_h" value='0'/>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_ps2ml" value='0'/></td>
@@ -491,7 +492,7 @@
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_craftass" value='[[@{craftass_h}]]' disabled/><input type="hidden" name="attr_craftass_h" value='0'/></td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_craftaml" value='0'/></td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_craftaug" value='0' /></td>
-                        <td style="width:35px"><input style=width:35px;color:#0000ff;text-align:center;  type="text" name="attr_tot-crafta" value='[[((@{craftasb}*@{craftaml})+@{craftaug})-(@{P2})+?{EML|0}]]' disabled="true"/></td>
+                        <td style="width:35px"><input style=width:35px;color:#0000ff;text-align:center;  type="text" name="attr_tot-crafta" value='[[(((@{craftasb}+@{craftass})*@{craftaml})+@{craftaug})-(@{P2})+?{EML|0}]]' disabled="true"/></td>
                         <td style="width:35px"><button type='roll' name='roll_skill' value='!EML,@{tot-crafta},[[1d100]],skill,@{crafta},Communication Skills'></button></td>
                     
                         <td style="width:220px;text-align:right;font-weight:bold"><input style=width:150px;text-align:right;font-weight:bold type="text" name="attr_craftb"/>&nbsp;(<input style=width:30px  type="text" name="attr_craftb_tot" value='[[(((@{craftbsb}+@{craftbss})*@{craftbml})+@{craftbug})]]' disabled="true"/>)&nbsp;</td>
@@ -499,7 +500,7 @@
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_craftbss" value='[[@{craftbss_h}]]' disabled/><input type="hidden" name="attr_craftbss_h" value='0'/></td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_craftbml" value='0'/></td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_craftbug" value='0'/></td>
-                        <td style="width:35px"><input style=width:35px;color:#0000ff;text-align:center;  type="text" name="attr_tot-craftb" value='[[((@{craftbsb}*@{craftbml})+@{craftbug})-(@{P2})+?{EML|0}]]' disabled="true"/></td>
+                        <td style="width:35px"><input style=width:35px;color:#0000ff;text-align:center;  type="text" name="attr_tot-craftb" value='[[(((@{craftbsb}+@{craftbss})*@{craftbml})+@{craftbug})-(@{P2})+?{EML|0}]]' disabled="true"/></td>
                         <td style="width:35px"><button type='roll' name='roll_skill' value='!EML,@{tot-craftb},[[1d100]],skill,@{craftb},Communication Skills'></button></td>
                     </tr>
                     </table>
@@ -512,7 +513,7 @@
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_craft1ss" value='[[@{craft1ss_h}]]' disabled/><input type="hidden" name="attr_craft1ss_h" value='0'/></td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_craft1ml" value='0'/></td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_craft1ug" value='0'/></td>
-                        <td style="width:35px"><input style=width:35px;color:#0000ff;text-align:center;  type="text" name="attr_tot-craft1" value='[[((@{craft1sb}*@{craft1ml})+@{craft1ug})-(@{P2})+?{EML|0}]]' disabled="true"/></td>
+                        <td style="width:35px"><input style=width:35px;color:#0000ff;text-align:center;  type="text" name="attr_tot-craft1" value='[[(((@{craft1sb}+@{craft1ss})*@{craft1ml})+@{craft1ug})-(@{P2})+?{EML|0}]]' disabled="true"/></td>
                         <td style="width:35px"><button type='roll' name='roll_skill' value='!EML,@{tot-craft1},[[1d100]],skill,@{craft1},Communication Skills'></button></td>
                     
                         <td style="width:220px;text-align:right"><input style=width:150px;text-align:right;font-weight:bold type="text" name="attr_craft2"/>&nbsp;(<input style=width:30px  type="text" name="attr_craft2_tot" value='[[(((@{craft2sb}+@{craft2ss})*@{craft2ml})+@{craft2ug})]]' disabled="true"/>)&nbsp;</td>
@@ -520,7 +521,7 @@
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_craft2ss" value='[[@{craft2ss_h}]]' disabled/><input type="hidden" name="attr_craft2ss_h" value='0'/></td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_craft2ml" value='0'/></td>
                         <td style="width:35px"><input style=width:35px  type="text" name="attr_craft2ug" value='0'/></td>
-                        <td style="width:35px"><input style=width:35px;color:#0000ff;text-align:center;  type="text" name="attr_tot-craft2" value='[[((@{craft2sb}*@{craft2ml})+@{craft2ug})-(@{P2})+?{EML|0}]]' disabled="true"/></td>
+                        <td style="width:35px"><input style=width:35px;color:#0000ff;text-align:center;  type="text" name="attr_tot-craft2" value='[[(((@{craft2sb}+@{craft2ss})*@{craft2ml})+@{craft2ug})-(@{P2})+?{EML|0}]]' disabled="true"/></td>
                         <td style="width:35px"><button type='roll' name='roll_skill' value='!EML,@{tot-craft2},[[1d100]],skill,@{craft2},Communication Skills'></button></td>
                     </tr>
                 </table>
@@ -1783,14 +1784,14 @@ var TAS = TAS || (function(){
     // 9  Sko
     // 10 Mas
     // 11 Lad
-    var optionalSkills = "acrobatics,dancing,legerdemain,skiing,swimming,acting,lovecraft,mental conflict,musician,language,script,agrik,halea,ilvir,larani,morgath,naveh,peoni,sarajin,save-k'nor,siem,axe,blowgun,bow,club,dagger,flail,net,polearm,shield,sling,spear,sword,whip,agricolture,alchemy,animalcraft,astrology,brewing,ceramics,cookery,drawing,embalming,engineering,fishing,fletching,folklore,foraging,glasswork,heraldry,herblore,hidework,jewelcraft,law,lockcraft,masonry,mathematics,metalcraft,milling,mining,perfumery,physician,piloting,runecraft,seamanship,shipwright,survival,tarotry,textilecraft,timbercraft,tracking,weaponcraft,weatherlore,woodcraft,lyahvi,peleahn,jmorvi,fyvria,odivshe,savorya,neutral,unarmed";
+    var optionalSkills = "acrobatics,dancing,legerdemain,skiing,swimming,acting,lovecraft,mental conflict,musician,language,script,agrik,halea,ilvir,larani,morgath,naveh,peoni,sarajin,save-k'nor,siem,axe,blowgun,bow,club,dagger,flail,net,polearm,shield,sling,spear,sword,whip,agricolture,alchemy,animalcraft,astrology,brewing,ceramics,cookery,drawing,embalming,engineering,fishing,fletching,folklore,foraging,glasswork,heraldry,herblore,hidework,jewelcraft,law,lockcraft,masonry,mathematics,metalcraft,milling,mining,perfumery,physician,piloting,runecraft,seamanship,shipwright,survival,tarotry,textilecraft,timbercraft,tracking,weaponcraft,weatherlore,woodcraft,lyahvi,peleahn,jmorvi,fyvria,odivshe,savorya,neutral,unarmed,riding,mercantyler";
     var skillsArray = new Array();
     skillsArray = optionalSkills.split(",");
     var stats = new Array();
-    var tempStats = "0,3,3|2,3,3|2,2,10|0,2,3|1,2,3|3,7,8|11,3,7|9,10,10|2,5,5|7,8,10|2,4,8|7,8,0|7,8,11|7,8,9|7,8,10|7,8,9|7,8,10|7,8,2|7,8,0|7,8,8|7,8,9|0,0,2|1,2,4|0,2,4|0,0,2|2,2,4|2,2,2|2,2,4|0,0,2|0,2,2|2,2,4|0,0,2|0,2,2|2,2,4|0,1,10|6,8,9|3,7,10|4,8,9|2,6,6|2,2,4|2,6,6|2,4,4|2,4,6|2,8,8|2,4,10|2,2,4|7,8,8|2,6,8|2,4,10|2,4,10|4,6,8|2,6,10|2,4,10|7,8,10|2,4,10|0,2,8|8,8,10|0,2,10|0,2,6|0,4,8|6,6,8|2,4,8|2,4,8|8,9,9|0,2,3|0,2,8|0,2,8|8,9,10|2,2,4|0,2,3|4,6,10|0,2,10|8,4,6|2,2,10|9,9,4|9,9,3|9,9,0|9,9,6|9,9,2|9,9,8|9,9,10|0,2,3";
+    var tempStats = "0,3,3|2,3,3|2,2,10|0,2,3|1,2,3|3,7,8|11,3,7|9,10,10|2,5,5|7,8,10|2,4,8|7,8,0|7,8,11|7,8,9|7,8,10|7,8,9|7,8,10|7,8,2|7,8,0|7,8,8|7,8,9|0,0,2|1,2,4|0,2,4|0,0,2|2,2,4|2,2,2|2,2,4|0,0,2|0,2,2|2,2,4|0,0,2|0,2,2|2,2,4|0,1,10|6,8,9|3,7,10|4,8,9|2,6,6|2,2,4|2,6,6|2,4,4|2,4,6|2,8,8|2,4,10|2,2,4|7,8,8|2,6,8|2,4,10|2,4,10|4,6,8|2,6,10|2,4,10|7,8,10|2,4,10|0,2,8|8,8,10|0,2,10|0,2,6|0,4,8|6,6,8|2,4,8|2,4,8|8,9,9|0,2,3|0,2,8|0,2,8|8,9,10|2,2,4|0,2,3|4,6,10|0,2,10|8,4,6|2,2,10|9,9,4|9,9,3|9,9,0|9,9,6|9,9,2|9,9,8|9,9,10|0,2,3|0,3,10|4,8,8";
     // to do: 
-    var tempSS = "5:2,6:1|7:2,6:1,8:1|7:2,8:2,9:2|10:2,9:1,11:1|9:1,10:3,11:3|7:1,8:1|10:1,4:1|0:0|10:1,4:1|8:1|7:1,8:1|5:2,3:1,4:1|7:2,6:1,10:1|9:2,8:1,0:1|4:2,2:1,3:1|11:2,3:1,10:1|10:2,7:1,9:1|1:2,0:1,4:1|2:2,1:1,11:1|8:2,7:1,9:1|6:2,0:1,2:1|2:1,3:1,4:1|6:2,5:1,7:1|5:1,6:1,7:1|0:1,1:1|4:2,5:2|5:1,6:1,7:1|9:1,10:1,11:1|1:1,4:1|0:1,10:1,11:1|5:1,6:1,7:1|0:1,1:1,2:1|4:3,3:1,5:1|5:1,6:1|0:2,1:2|9:3,8:2,10:2|0:1,1:1|7:1|9:3,8:2,10:2|0:2,1:2|9:1|8:1,9:1|0:1,9:1|0:2,1:2,2:1|10:2,11:2|6:2,5:1,7:1|8:2|0:2,1:2|2:2|8:1,9:1|0:3,1:2|0:1,1:1|2:3,1:1,7:1|7:1,8:1|2:1|0:2,1:2|8:3,7:1,9:1|2:3,3:1,4:1|0:1|0:2,1:2,2:1|6:1,7:1,9:1|10:2,8:1,9:1|11:3,10:1|8:2,9:1|11:3,9:1,10:1|11:3,10:1|0:2,1:1|7:2,8:2,6:1,9:1|0:1,1:1|0:3,1:1|0:3,1:3|2:3,3:1,4:1|6:1,7:1,10:1,11:1|0:2,1:1,11:1|0:-3,1:-2,2:-1,3:0,4:1,5:2,6:3,7:2,8:1,9:0,10:-1,11:-2|0:-1,1:0,2:1,3:2,4:3,5:2,6:1,7:0,8:-1,9:-2,10:-3,11:-2|0:1,1:2,2:3,3:2,4:1,5:0,6:-1,7:-2,8:-3,9:-2,10:-1,11:0|0:3,1:2,2:1,3:0,4:-1,5:-2,6:-3,7:-2,8:-1,9:0,10:1,11:2|0:1,1:0,2:-1:3:-2,4:-3,5:-2,6:-1,7:0,8:1,9:2,10:3,11:2|0:-1,1:-2,2:-3,3:-2,4:-1,5:0,6:1,7:2,8:3,9:2,10:1,11:0|0:0|0:2,10:2,11:2";
-    var tempOML = "2,2,1,1,1,2,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,3,4,2,4,3,1,1,2,3,1,3,3,1,2,1,1,1,2,2,3,2,1,1,3,1,3,3,1,1,1,2,1,1,1,1,1,1,2,1,1,1,1,1,2,1,3,1,2,2,2,1,3,2,0,0,0,0,0,0,0,4";
+    var tempSS = "5:2,6:1|7:2,6:1,8:1|7:2,8:2,9:2|10:2,9:1,11:1|9:1,10:3,11:3|7:1,8:1|10:1,4:1|0:0|10:1,4:1|8:1|7:1,8:1|5:2,3:1,4:1|7:2,6:1,10:1|9:2,8:1,0:1|4:2,2:1,3:1|11:2,3:1,10:1|10:2,7:1,9:1|1:2,0:1,4:1|2:2,1:1,11:1|8:2,7:1,9:1|6:2,0:1,2:1|2:1,3:1,4:1|6:2,5:1,7:1|5:1,6:1,7:1|0:1,1:1|4:2,5:2|5:1,6:1,7:1|9:1,10:1,11:1|1:1,4:1|0:1,10:1,11:1|5:1,6:1,7:1|0:1,1:1,2:1|4:3,3:1,5:1|5:1,6:1|0:2,1:2|9:3,8:2,10:2|0:1,1:1|7:1|9:3,8:2,10:2|0:2,1:2|9:1|8:1,9:1|0:1,9:1|0:2,1:2,2:1|10:2,11:2|6:2,5:1,7:1|8:2|0:2,1:2|2:2|8:1,9:1|0:3,1:2|0:1,1:1|2:3,1:1,7:1|7:1,8:1|2:1|0:2,1:2|8:3,7:1,9:1|2:3,3:1,4:1|0:1|0:2,1:2,2:1|6:1,7:1,9:1|10:2,8:1,9:1|11:3,10:1|8:2,9:1|11:3,9:1,10:1|11:3,10:1|0:2,1:1|7:2,8:2,6:1,9:1|0:1,1:1|0:3,1:1|0:3,1:3|2:3,3:1,4:1|6:1,7:1,10:1,11:1|0:2,1:1,11:1|0:-3,1:-2,2:-1,3:0,4:1,5:2,6:3,7:2,8:1,9:0,10:-1,11:-2|0:-1,1:0,2:1,3:2,4:3,5:2,6:1,7:0,8:-1,9:-2,10:-3,11:-2|0:1,1:2,2:3,3:2,4:1,5:0,6:-1,7:-2,8:-3,9:-2,10:-1,11:0|0:3,1:2,2:1,3:0,4:-1,5:-2,6:-3,7:-2,8:-1,9:0,10:1,11:2|0:1,1:0,2:-1:3:-2,4:-3,5:-2,6:-1,7:0,8:1,9:2,10:3,11:2|0:-1,1:-2,2:-3,3:-2,4:-1,5:0,6:1,7:2,8:3,9:2,10:1,11:0|0:0|0:2,10:2,11:2|0:1,1:1|7:2,8:2,9:1";
+    var tempOML = "2,2,1,1,1,2,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,3,4,2,4,3,1,1,2,3,1,3,3,1,2,1,1,1,2,2,3,2,1,1,3,1,3,3,1,1,1,2,1,1,1,1,1,1,2,1,1,1,1,1,2,1,3,1,2,2,2,1,3,2,0,0,0,0,0,0,0,4,1,4";
     var tempWeapons = "hand,foot,head,buckler,knight,round,kite,tower,knife,dagger,taburi,keltan,longknife,shortsword,mankar,mang,broadsword,estoc,falchion,bastard sword,battlesword,stick,club,mace,morningstar,maul,sickle,shorkana,hatchet,handaxe,warhammer,battleaxe,nachakas,grainflail,ball & chain,warflail,staff,javelin,spear,trident,lance,glaive,jousting pole,poleaxe,pike,net,whip,isagra,crossbow,shortbow,longbow,hartbow,blowgun,sling,staff sling,punch,kick";
     var tempWeaponDamage = "0,0,0|1,0,0|1,0,0|1,0,0|2,0,0|2,0,0|3,0,0|3,0,0|0,1,4|1,2,5|0,0,4|2,0,3|1,3,5|2,4,4|2,5,0|3,6,0|3,5,3|3,0,6|4,6,1|4,7,4|5,8,4|2,0,0|4,0,0|6,0,0|0,0,5|7,0,0|1,4,3|3,5,0|3,4,0|4,6,0|6,0,0|6,9,0|4,0,0|2,0,6|4,0,7|4,0,5|4,0,8|6,7,6|3,0,0|6,9,6|4,0,8|2,0,0|2,1,0|3,3,0|0,0,0|0,0,0|0,0,0|0,0,0|1,0,0|0,0,0|0,0,0|0,0,0|1,0,0";
     var tempWeaponWT = "0,0,0,3,5,6,7,8,1,1,1,2,1,2,2,3,3,3,4,5,8,2,3,4,5,7,1,2,2,3,5,6,1,2,4,5,4,3,5,6,8,8,8,8,12,4,2,4,5,2,3,2,1,0.1,1,0,0";
@@ -2501,6 +2502,9 @@ var TAS = TAS || (function(){
 
 
 on('change:strength change:stamina change:dexterity change:agility change:eyesight change:hearing change:smell change:voice change:intelligence change:will change:aura change:comeliness change:sunsigntable_h', function () {
+    getAttrs(["CS3ml"], function(values) {
+        calcSkill("riding", "CS3sb", "CS3ss_h", "CS3ml", values.CS3ml);
+    });
     getAttrs(["crafta", "craftaml"], function(values) {
         calcSkill(values.crafta, "craftasb", "craftass_h", "craftaml", values.craftaml);
     });
