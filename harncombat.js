@@ -39,7 +39,130 @@ missileIg[0] = ["Wild shot!", "Attacker misses", "Attacker deals 2D6 damage!", "
 var hiddenSkillsList = ["hearing","eyesight","smell","intelligence","aura","awareness","weatherlore","tarotry","runecraft","legerdemain","stealth","acting","physician","tracking","survival","astrology"];
 
 on('chat:message', function(msg_orig) {
-    if(msg_orig.type == "api" && msg_orig.content.indexOf("!SEML") >= 0)
+    if(msg_orig.type == "api" && msg_orig.content.indexOf("!EML") >= 0)
+    {
+        //log(msg_orig.inlinerolls);
+        var msg = _.clone(msg_orig),
+            args,attr,amount,chr,token,text='';
+
+        if(_.has(msg,'inlinerolls')){
+            msg.content = _.chain(msg.inlinerolls)
+                .reduce(function(m,v,k){
+                    m['$[['+k+']]']=v.results.total || 0;
+                    return m;
+                },{})
+                .reduce(function(m,v,k){
+                    return m.replace(k,v);
+                },msg.content)
+                .value();
+        }
+        var args = msg.content.split(",");
+        var eml = parseInt(args[1]);
+        //log("=====================EML: "+eml);
+        var category = args[5];
+        var roll100 = parseInt(args[2]);
+        var si = Math.floor(eml/10);
+        var newChat = "";
+        var critical = "";
+        var success = ""
+        var pref = "";
+        var suff = "}}";
+        if(args[4].indexOf("Shock") != 0 && args[4].indexOf("Fumble") != 0 && args[4].indexOf("Stumble") != 0){
+            if((div5 == Math.round(div5) || (div5 != Math.round(div5) && roll100 <= si)) && (roll100 <= eml && roll100 <= 95))
+            {
+                critical = "Critical ";
+                success = "Success!";
+                pref = "{{cs=";
+            }
+            else if(div5 == Math.round(div5) && roll100 > eml)
+            {
+                    critical = "Critical ";
+                    success = "Failure!";
+                    pref = "{{cf=";
+            }
+            else if((div5 != Math.round(div5) && roll100 <= eml && roll100 <= 95) || roll100 <= 4)
+            {
+                critical = "Moderate ";
+                success = "Success.";
+                pref = "{{ms=";
+            }
+            else if((div5 != Math.round(div5) && roll100 > eml) || roll100 > 95)
+            {   
+                critical = "Moderate ";
+                success = "Failure.";
+                pref = "{{mf=";
+            }
+        }
+        else
+        {
+            if(roll100 <= eml)
+            {   
+                critical = "";
+                success = "Success!";
+                pref = "{{cs=";
+            }
+            else
+            {   
+                critical = "";
+                success = "Failure!";
+                pref = "{{cf=";
+            }
+        }
+
+        if(category.indexOf("#")>=0){
+            category = category.replace("#","");
+            pid = category;
+        }else{
+            var pid = "character|";
+
+            for(var n=0; n<pl.length;n++){
+                if (pl[n][0] == msg.who)
+                    pid += pl[n][1];
+            }
+        }
+        /*
+        for(var k=0; k<args.length;k++)
+        {
+            if(k == 4)
+                {newChat = newChat + "<br />(";}
+            newChat = newChat + " " + args[k];
+        }
+        */
+        //newChat = newChat + ")<br />" + pref + "- " + critical + success + " -" + suff;
+        newChat = newChat + "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} {{roll=" + roll100 + "}} {{eml=" + eml + "}} " + pref + critical + success + suff;
+        //newChat = newChat.replace("Attacks With a ", "{{weapon=");
+        //newChat = newChat.replace(" using the ", "}}");
+        //newChat = newChat.replace(" skill ", "}}");
+        //newChat = newChat.replace(" !EML", "/direct EML");
+        //log(newChat);
+        var skillName = args[4].toLowerCase();
+        var hidden = false;
+        for(var t=0; t<hiddenSkillsList.length;t++){
+            if(skillName.indexOf(hiddenSkillsList[t]) >= 0)
+                hidden = true;
+        }
+
+        if(hidden){
+            var article = "a";
+            var endcheck = " roll...";
+            if(args[4].toLowerCase().indexOf("a") == 0 || args[4].toLowerCase().indexOf("e") == 0 || args[4].toLowerCase().indexOf("i") == 0 || args[4].toLowerCase().indexOf("o") == 0 || args[4].toLowerCase().indexOf("u") == 0) {
+                article +="n";
+            }
+            if(args[4].toLowerCase().indexOf("check") >= 0){
+                endcheck = "";
+            }
+            var player = "You make " + article + " " + args[4] + endcheck;
+        }else{
+            var player = "/w " + msg.who + " " + newChat;
+        }
+        
+        var master = "/w GM " + newChat;
+        sendChat(pid, master);
+        //if(msg.who.indexOf("(GM)") < 0)
+            //sendChat(msg.who, player);
+      
+    }
+    else if(msg_orig.type == "api" && msg_orig.content.indexOf("!SEML") >= 0)
     {
         //log(msg_orig.inlinerolls);
 
