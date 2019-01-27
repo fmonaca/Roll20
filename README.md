@@ -11,7 +11,7 @@ For languages and scripts, they have to contain the word 'language' or 'script'.
 So, for example, you can write something like "Harnic (language)" or "Lakise (script)" in one of the languages fields to be recognised and auto-calculated.
 All other optional skills can contain other info as well. For example, you can have "Survival (forest)" in the name of the skill - it will compute the survival skill. This behaviour is required because some skills are not generic (musician, survival, etc.).
 
-The SunSing bonus is taken into account everywere (although it is not shown for weapons skills and spells).
+The SunSign bonus is taken into account everywere (although it is not shown for weapons skills and spells).
 
 Armour weights are calculated automatically, and size is computed in the math. Smaller people will have lighter armour and vice-versa.
 
