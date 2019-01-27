@@ -1,3 +1,4 @@
+
 /* Look-up tables */
 var meleeBl = new Array();
 meleeBl[0] = ["Both attacker and defender make a FUMBLE roll", "Attacker makes a FUMBLE roll", "Defender gains a Tactical Advantage!", "Defender gains a Tactical Advantage!"];
@@ -35,107 +36,13 @@ missileDo[3] = ["Attacker deals 3D6 damage", "Attacker deals 2D6 damage", "Attac
 var missileIg = new Array();
 missileIg[0] = ["Wild shot!", "Attacker misses", "Attacker deals 2D6 damage!", "Attacker deals 3D6 damage!"];
 
-var hiddenSkillsList = "hearing,eyesight,smell,intelligence,aura,awareness,weatherlore,tarotry,runecraft,legerdemain,stealth,acting,physician,tracking,survival,astrology";
+var hiddenSkillsList = ["hearing","eyesight","smell","intelligence","aura","awareness","weatherlore","tarotry","runecraft","legerdemain","stealth","acting","physician","tracking","survival","astrology"];
 
 on('chat:message', function(msg_orig) {
-    if(msg_orig.type == "api" && msg_orig.content.indexOf("!EML") >= 0)
+    if(msg_orig.type == "api" && msg_orig.content.indexOf("!SEML") >= 0)
     {
         //log(msg_orig.inlinerolls);
-        var msg = _.clone(msg_orig),
-            args,attr,amount,chr,token,text='';
 
-        if(_.has(msg,'inlinerolls')){
-            msg.content = _.chain(msg.inlinerolls)
-                .reduce(function(m,v,k){
-                    m['$[['+k+']]']=v.results.total || 0;
-                    return m;
-                },{})
-                .reduce(function(m,v,k){
-                    return m.replace(k,v);
-                },msg.content)
-                .value();
-        }
-        var args = msg.content.split(",");
-        var eml = parseInt(args[1]);
-        //log("=====================EML: "+eml);
-        var roll100 = parseInt(args[2]);
-        
-        var newChat = "";
-        var critical = "Moderate ";
-        var success = "Failure!"
-        var pref = "{{mf=";
-        var suff = "}}";
-        if(args[4].indexOf("Shock") != 0 && args[4].indexOf("Fumble") != 0 && args[4].indexOf("Stumble") != 0){
-            var div5 = roll100/5;
-            if(div5 == Math.round(div5))
-            {
-                critical = "Critical ";
-                if((roll100 <= eml && roll100 <= 95) || roll100 <= 5)
-                {
-                    pref = "{{cs=";
-                }
-                else
-                {
-                    pref = "{{cf=";
-                }
-            }
-            if((roll100 <= eml && roll100 <= 95) || roll100 <= 5)
-            {   
-                success = "Success!";
-                if(div5 != Math.round(div5))
-                {
-                    pref = "{{ms=";
-                }
-
-            }
-        }
-        else{
-            critical = "";
-            if(roll100 <= eml)
-            {   
-                success = "Success!";
-                pref = "{{ms=";
-            }
-        }
-        /*
-        for(var k=0; k<args.length;k++)
-        {
-            if(k == 4)
-                {newChat = newChat + "<br />(";}
-            newChat = newChat + " " + args[k];
-        }
-        */
-        //newChat = newChat + ")<br />" + pref + "- " + critical + success + " -" + suff;
-        newChat = newChat + "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} {{roll=" + roll100 + "}} {{eml=" + eml + "}} " + pref + critical + success + suff;
-        //newChat = newChat.replace("Attacks With a ", "{{weapon=");
-        //newChat = newChat.replace(" using the ", "}}");
-        //newChat = newChat.replace(" skill ", "}}");
-        //newChat = newChat.replace(" !EML", "/direct EML");
-        //log(newChat);
-        var skillName = args[4].toLowerCase();
-        if(hiddenSkillsList.indexOf(skillName) >= 0){
-            var article = "a";
-            var endcheck = " roll...";
-            if(args[4].toLowerCase().indexOf("a") == 0 || args[4].toLowerCase().indexOf("e") == 0 || args[4].toLowerCase().indexOf("i") == 0 || args[4].toLowerCase().indexOf("o") == 0 || args[4].toLowerCase().indexOf("u") == 0) {
-                article +="n";
-            }
-            if(args[4].toLowerCase().indexOf("check") >= 0){
-                endcheck = "";
-            }
-            var player = "You make " + article + " " + args[4] + endcheck;
-        }else{
-            var player = "/w " + msg.who + " " + newChat;
-        }
-        
-        var master = "/w GM " + newChat;
-        sendChat(msg.who, master);
-        if(msg.who.indexOf("(GM)") < 0)
-            sendChat(msg.who, player);
-      
-    }
-    else if(msg_orig.type == "api" && msg_orig.content.indexOf("!SEML") >= 0)
-    {
-        log(msg_orig.inlinerolls);
         var msg = _.clone(msg_orig),
             args,attr,amount,chr,token,text='';
 
@@ -155,34 +62,125 @@ on('chat:message', function(msg_orig) {
         var roll100 = parseInt(args[2]);
         //log("roll100: "+roll100);
         var newChat = "";
-        var critical = "Moderate ";
-        var success = "Failure!"
-        var pref = "{{mf=";
+        var critical = "";
+        var success = ""
+        var pref = "";
         var suff = "}}";
-
+        var si = Math.floor(eml/10);
         var div5 = roll100/5;
-        if(div5 == Math.round(div5))
+        var failureResults = "";
+        var cantDesc;
+        var gestDesc;
+        var noisDesc;
+        switch (Number(args[6]))
         {
-            critical = "Critical ";
-            if((roll100 <= eml && roll100 <= 95) || roll100 <= 5)
+            case -10:
+                cantDesc = "Silence";
+                break;
+            case -5:
+                cantDesc = "Whispering";
+                break;
+            case 0:
+                cantDesc = "Normal voice";
+                break;
+            case 5:
+                cantDesc = "Shouting";
+                break;
+        }
+        switch (Number(args[7]))
+        {
+            case -10:
+                gestDesc = "No movement";
+                break;
+            case -5:
+                gestDesc = "Small movements";
+                break;
+            case 0:
+                gestDesc = "Normal movements";
+                break;
+            case 5:
+                gestDesc = "Extreme movements";
+                break;
+        }
+        switch (Number(args[8]))
+        {
+            case 5:
+                noisDesc = "Silence";
+                break;
+            case 0:
+                noisDesc = "Small noises";
+                break;
+            case -5:
+                noisDesc = "Normal noises";
+                break;
+            case -10:
+                noisDesc = "Extreme noises";
+                break;
+            case -15:
+                noisDesc = "Combat";
+                break;
+        }
+
+        if((div5 == Math.round(div5) || (div5 != Math.round(div5) && roll100 <= 5)) && (roll100 <= eml && roll100 <= 95))
             {
+                critical = "Critical ";
+                success = "Success!";
                 pref = "{{cs=";
             }
-            else
+            else if(div5 == Math.round(div5) && roll100 > eml)
             {
-                pref = "{{cf=";
+                    critical = "Critical ";
+                    success = "Failure!";
+                    pref = "{{cf=";
+                    var failureRoll = randomInteger(100);
+                    failureResults = "Failure Roll: " + failureRoll + "<br>";
+                    if(failureRoll<=40)
+                    {
+                        failureResults += "Form Failure - " + randomInteger(3) + " Fatigue Levels accumulated due to shock.";
+                    }
+                    else if(failureRoll > 40 && failureRoll <= 50)
+                    {
+                        failureResults += "Aural Shock - Cannot use spells and psionics. Every 4 hours a d100 roll can be made (even if unconscious) and if < Aura then the powers are restored.";
+                    }
+                    else if(failureRoll > 50 && failureRoll <= 60)
+                    {
+                        failureResults += "Confusion - Wrong spell has been casted!";
+                    }
+                    else if(failureRoll > 60 && failureRoll <= 70)
+                    {
+                        failureResults += "Damage - A Focus will work erratically or not at all until repaired. If no focus has been used, an Aura Shock has been sustained instead (no spells or psionics, roll 1d100 < Aura every 4 hours to recover).";
+                    }
+                    else if(failureRoll > 70 && failureRoll <= 80)
+                    {
+                        failureResults += "Distortion - The power, direction, target and/or duration are different (can be less or more).";
+                    }
+                    else if(failureRoll > 80 && failureRoll <= 90)
+                    {
+                        failureResults += "Summoning - Appropriate elemental is summoned. Reaction depends on type of spell that was being cast.";
+                    }
+                    else if(failureRoll > 90 && failureRoll <= 99)
+                    {
+                        failureResults += "Wild Spell - The spell is miscast. For example, casting a fireball it could explode prematurely or even in the caster's hand.";
+                    }
+                    else
+                    {
+                        failureResults += "Total Release - Catastrophic! See Shek-P'Var 11. Good luck!";
+                    }
             }
-        }
-        if((roll100 <= eml && roll100 <= 95) || roll100 <= 5)
-        {   
-            success = "Success!";
-            if(div5 != Math.round(div5))
+            else if((div5 != Math.round(div5) && roll100 <= eml && roll100 <= 95) || roll100 <= 4)
             {
+                critical = "Moderate ";
+                success = "Success.";
                 pref = "{{ms=";
             }
-        }
-  
-        newChat = newChat + "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} {{roll=" + roll100 + "}} {{eml=" + eml + "}} " + pref + critical + success + suff;
+            else if((div5 != Math.round(div5) && roll100 > eml) || roll100 > 95)
+            {   
+                critical = "Moderate ";
+                success = "Failure.";
+                pref = "{{mf=";
+            }
+        //log("Failure: "+failureResults);
+        newChat = newChat + "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} {{roll=" + roll100 + "}} {{eml=" + eml + "<br>" + cantDesc + ", " + gestDesc + ", " + noisDesc + "}} " + pref + critical + success + suff + " {{spellfailure=" + failureResults + "}} ";
 
         var player = "/w " + msg.who + " " + newChat;
    
@@ -192,7 +190,7 @@ on('chat:message', function(msg_orig) {
             sendChat(msg.who, player);
       
     }
-    else if(msg_orig.type == "api" && msg_orig.content.indexOf("!GMEML") >= 0)
+    else if(msg_orig.type == "api" && msg_orig.content.indexOf("!HHEML") >= 0)
     {
         var msg = _.clone(msg_orig),
             args,attr,amount,chr,token,text='';
@@ -210,62 +208,105 @@ on('chat:message', function(msg_orig) {
         }
         var args = msg.content.split(",");
         var eml = parseInt(args[1]);
-        var si = Math.round(eml/10);
+        var si = Math.floor(eml/10);
         var roll100 = parseInt(args[2]);
+        var skillName = args[4].toLowerCase();
+        var category = args[5];
         var div5 = roll100/5;
-        var critical = "Moderate ";
-        var success = "Failure!"
-        var newChat = "/w GM ";
-        var pref = "{{mf=";
+        var critical = "";
+        var success = "";
+        //var newChat = "/w GM ";
+
+        var newChat = "/w " + msg.who + " ";
+        var gmChat = "/w gm ";
+        var pref = "";
         var suff = "}}";
-        if(div5 == Math.round(div5) || roll100 <= 5)
-        {
-            critical = "Critical ";
-            if((roll100 <= eml && roll100 <= 95))
+        if(args[4].indexOf("Shock") != 0 && args[4].indexOf("Fumble") != 0 && args[4].indexOf("Stumble") != 0){
+            if((div5 == Math.round(div5) || (div5 != Math.round(div5) && roll100 <= 5)) && (roll100 <= eml && roll100 <= 95))
             {
+                critical = "Critical ";
+                success = "Success!";
+                pref = "{{cs=";
+            }
+            else if(div5 == Math.round(div5) && roll100 > eml)
+            {
+                    critical = "Critical ";
+                    success = "Failure!";
+                    pref = "{{cf=";
+            }
+            else if((div5 != Math.round(div5) && roll100 <= eml && roll100 <= 95) || roll100 <= 4)
+            {
+                critical = "Moderate ";
+                success = "Success.";
+                pref = "{{ms=";
+            }
+            else if((div5 != Math.round(div5) && roll100 > eml) || roll100 > 95)
+            {   
+                critical = "Moderate ";
+                success = "Failure.";
+                pref = "{{mf=";
+            }
+        }
+        else
+        {
+            if(roll100 <= eml)
+            {   
+                critical = "";
+                success = "Success!";
                 pref = "{{cs=";
             }
             else
-            {
+            {   
+                critical = "";
+                success = "Failure!";
                 pref = "{{cf=";
             }
         }
-        if((roll100 <= eml && roll100 <= 95) || roll100 <= 5)
-        {   
-            success = "Success!";
-            if(div5 != Math.round(div5) && roll100 > si)
-            {
-                pref = "{{ms=";
-            }
 
+        if(category.indexOf("#")>=0){
+            category = category.replace("#","");
+            pid = category;
+        }else{
+            var pid = "character|";
+
+            for(var n=0; n<pl.length;n++){
+                if (pl[n][0] == msg.who)
+                    pid += pl[n][1];
+            }
         }
-        /*
-        for(var k=0; k<args.length;k++)
-        {
-            if(k == 4)
-                {newChat = newChat + "<br />(";}
-            newChat = newChat + " " + args[k];
+
+        //newChat = newChat + "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} {{roll=" + roll100 + "}} {{eml=" + eml + "}} " + pref + critical + success + suff;
+        newChat = newChat + "&{template:harn} {{roll=" + roll100 + "}} {{eml=" + eml + "}}";
+        gmChat += "&{template:harn} {{roll=" + roll100 + "}} {{eml=" + eml + "}} {{who=" + msg.who + "}}";
+        publicChat = "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} " + pref + critical + success + suff;
+        
+        var hidden = false;
+        for(var t=0; t<hiddenSkillsList.length;t++){
+            if(skillName.indexOf(hiddenSkillsList[t]) >= 0)
+                hidden = true;
         }
-        */
-        //newChat = newChat + ")<br />" + pref + "- " + critical + success + " -" + suff;
-        newChat = newChat + "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} {{roll=" + roll100 + "}} {{eml=" + eml + "}} " + pref + critical + success + suff;
-        var article = "a";
-        var endcheck = " Check";
-        if(args[4].toLowerCase().indexOf("a") == 0 || args[4].toLowerCase().indexOf("e") == 0 || args[4].toLowerCase().indexOf("i") == 0 || args[4].toLowerCase().indexOf("o") == 0 || args[4].toLowerCase().indexOf("u") == 0) {
-            article +="n";
+
+        if(hidden){
+            var article = "a";
+            var endcheck = " roll...";
+            if(args[4].toLowerCase().indexOf("a") == 0 || args[4].toLowerCase().indexOf("e") == 0 || args[4].toLowerCase().indexOf("i") == 0 || args[4].toLowerCase().indexOf("o") == 0 || args[4].toLowerCase().indexOf("u") == 0) {
+                article +="n";
+            }
+            if(args[4].toLowerCase().indexOf("check") >= 0){
+                endcheck = "";
+            }
+            var player = "/w " + msg.who + " You make " + article + " " + args[4] + endcheck;
+            if(msg.who.indexOf("(GM)") < 0)
+                sendChat(pid, player);
+            sendChat(pid, "/w GM (hidden from player) " + publicChat + " {{roll=" + roll100 + "}} {{eml=" + eml + "}} {{who=" + msg.who + "}}");
+        }else{
+            sendChat(pid, publicChat);
+            //sendChat(pid, newChat);
+            if(msg.who.indexOf("(GM)") < 0)
+                sendChat(pid, gmChat);
         }
-        if(args[4].toLowerCase().indexOf("check") >= 0){
-            endcheck = "";
-        }
-        allToSee = "/e makes " + article + " " + args[4] + endcheck;
-        //newChat = newChat.replace("Attacks With a ", "{{weapon=");
-        //newChat = newChat.replace(" using the ", "}}");
-        //newChat = newChat.replace(" skill ", "}}");
-        //newChat = newChat.replace(" !EML", "/direct EML");
-        //log(newChat);
-        sendChat(msg.who, allToSee);
-        sendChat(msg.who, newChat);
-      
+
+
     }
 
 });
