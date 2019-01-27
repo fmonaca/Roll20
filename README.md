@@ -19,6 +19,36 @@ I adopted some house rules, so some of the skill rolls are not shown to the play
 
 The code is messy, as it has begun as a quick modification of the sheet using sheet workers because of players requests, and in time it accumulated dozens of changes, morphing into something else. I still have to find the courage to start from scratch to produce something neater.
 
+Macros
+
+I use a couple of macros to roll for awareness or other stuff (i.e. hearing, smell, aura, etc.) without the player knowing. Select the token representing the character sheet you want to roll on, and click on the token action macro (you have to create the macro and select the option "Show as token action?":
+
+Aura
+
+!EML,[[(@{selected|aura}*?{Ease of Challenge|5})-((@{selected|inj_tot_h}*5)+(@{selected|Fatigue}*5))]],[[1d100]],skill,Eyesight Check,#@{selected|token_name}
+
+Awareness
+
+!EML, @{selected|tot-awareness},[[1d100]],skill,Awareness,#@{selected|token_name}
+
+Eyesight
+
+!EML,[[(@{selected|eyesight}*?{Ease of Challenge|5})-((@{selected|inj_tot_h}*5)+(@{selected|Fatigue}*5))]],[[1d100]],skill,Eyesight Check,#@{selected|token_name}
+
+Hearing
+
+!EML,[[(@{selected|hearing}*?{Ease of Challenge|5})-((@{selected|inj_tot_h}*5)+(@{selected|Fatigue}*5))]],[[1d100]],skill,Eyesight Check,#@{selected|token_name}
+
+Smell
+
+!EML,[[(@{selected|smell}*?{Ease of Challenge|5})-((@{selected|inj_tot_h}*5)+(@{selected|Fatigue}*5))]],[[1d100]],skill,Eyesight Check,#@{selected|token_name}
+
+Stamina
+
+!EML,[[(@{selected|stamina}*?{Ease of Challenge|5})-((@{selected|inj_tot_h}*5)+(@{selected|Fatigue}*5)+((round((round((@{selected|armour_wt_h}+@{selected|weapons_tot_h}+@{selected|gen_equip_wt_h}) / round(((@{selected|CS2sb}*@{selected|CS2ml})+@{selected|CS2ug})/5)))/@{selected|ridingwalking}))*5))]],[[1d100]],skill,Stamina Check,#@{selected|token_name}
+
+
+
 Aaron's Github script:
 
 https://github.com/shdwjk/TheAaronSheet/blob/master/TheAaronSheet.js
