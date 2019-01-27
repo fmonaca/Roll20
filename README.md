@@ -10,6 +10,11 @@ The character sheet is almost completely automated. Every skill is calculated on
 For languages and scripts, they have to contain the word 'language' or 'script'.
 So, for example, you can write something like "Harnic (language)" or "Lakise (script)" in one of the languages fields to be recognised and auto-calculated.
 All other optional skills can contain other info as well. For example, you can have "Survival (forest)" in the name of the skill - it will compute the survival skill. This behaviour is required because some skills are not generic (musician, survival, etc.).
+
+Any skill can go into any skill category (you can put a lore skill in the "Physical Skills" section of the sheet), but consider that different categories take into account different penalties. For example, any physical skill gets all the penalties from fatigue, wounds and encumbrance. Lore skills do not consider the penalty from encumbrance (in my interpretation of the rules anyhow - recognising a herb is hardly more difficult while carrying a backpack, but that can be changed in the code of course).
+
+Religion needs to be correctly spelled as well. All canonic religions on Harn are valid, plus all the tribal ones as well (agrik, halea, ilvir, larani, morgath, naveh, peoni, sarajin, save-k'nor, siem, adaenum, anoa, bujoc, chelni, chymak, equani, gozyda, hodiri, kabloqui, kamaki, kath, kubora, pagaelin, solori, taelda, tulwyr, urdu, ymodi).
+
 Weapons work much the same. Under "Class" just write the skill name as it is in the manual, i.e. sword or polearm. The sheet will compute the EML. In the "Type" field, write the specific weapon, i.e. longsword or pike. This will insert the details of that weapon (weight, weapon quality, bonus/malus on attack/defense, impact values). Unarmed is a valid skill (class), and "foot" or "hand" ar valid weapons. When blocking, players can easily roll for a weapon break check using the die icon in the WQ field.
 
 Changing any editable detail (in skills, weapons, armour or spells) will save the change until you modify the skill name or, in the case of armour, select another material or piece from the dropdowns. Doing so will auto-compute the new skill/armour piece and overwrite your manual changes, so be careful. So a player can change a weapon or armour weight to a custom one, or the impact values of special weapons, and so on.
