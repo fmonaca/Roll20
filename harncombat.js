@@ -551,6 +551,9 @@ function weaponRoll(stringa)
     else
         {return (cname + "'s " + wName + " BREAKS!");}
 }
+
+var pl = new Array();
+
 on('ready',function() {
     'use strict';
     var characters=findObjs({_type:'character'});
