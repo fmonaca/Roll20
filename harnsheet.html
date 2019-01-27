@@ -1847,49 +1847,62 @@
                 stat[11] = values.comeliness;
                 skillName = skillName.toLowerCase();
                 var i;
-                for(i = 0; i < numSkills; i++){
-                    if(skillName.indexOf(skillsArray[i]) >= 0)
-                            {
-                                var threeStats = new Array();
-                                threeStats = stats[i].split(",");
-                                var first = parseInt(threeStats[0]);
-                                var second = parseInt(threeStats[1]);
-                                var third = parseInt(threeStats[2]);
-                                skillSB = Math.round((parseInt(stat[first])+parseInt(stat[second])+parseInt(stat[third]))/3);
-                                setAttrs({
-                                    [fieldName]: skillSB
-                                });
-                                var signsList = signs[i].split(",");
-                                
-                                var tempArray = new Array();
+                if (skillName == "")
+                {
 
-                                for(var n = 0; n < signsList.length; n++)
+                    setAttrs({
+                        [fieldName]: "",
+                        [fieldSS]: "",
+                        [fieldML]: ""
+                    });
+              
+                }
+                else{
+                    for(i = 0; i < numSkills; i++){
+                        if(skillName.indexOf(skillsArray[i]) >= 0)
                                 {
-                                    var sCouples = new Array();
-                                    sCouples = signsList[n].split(":");
-                                    var segno = parseInt(sCouples[0]);
-                                    tempArray[n] = parseInt(sign[segno])*sCouples[1];
-                                }
-                                tempArray.sort(function(a,b){return a-b});
-                                maxBonus=tempArray.pop();
-                                isSpell=tempArray.shift();
-                                if(isSpell<0)
-                                {
-                                    maxBonus = isSpell;
-                                }
+                                    var threeStats = new Array();
+                                    threeStats = stats[i].split(",");
+                                    var first = parseInt(threeStats[0]);
+                                    var second = parseInt(threeStats[1]);
+                                    var third = parseInt(threeStats[2]);
+                                    skillSB = Math.round((parseInt(stat[first])+parseInt(stat[second])+parseInt(stat[third]))/3);
                                     setAttrs({
-                                        [fieldSS]: maxBonus
+                                        [fieldName]: skillSB
                                     });
-                                newML = parseInt(OML[i]);
-                                if(parseInt(fieldMLval)>parseInt(OML[i]))
-                                {
-                                   newML = parseInt(fieldMLval);
-                                }
-                                setAttrs({
-                                        [fieldML]: newML
-                                    }); 
-                            }
+                                    var signsList = signs[i].split(",");
+                                    
+                                    var tempArray = new Array();
 
+                                    for(var n = 0; n < signsList.length; n++)
+                                    {
+                                        var sCouples = new Array();
+                                        sCouples = signsList[n].split(":");
+                                        var segno = parseInt(sCouples[0]);
+                                        tempArray[n] = parseInt(sign[segno])*sCouples[1];
+                                    }
+                                    tempArray.sort(function(a,b){return a-b});
+                                    maxBonus=tempArray.pop();
+                                    isSpell=tempArray.shift();
+                                    if(isSpell<0)
+                                    {
+                                        maxBonus = isSpell;
+                                    }
+                                        setAttrs({
+                                            [fieldSS]: maxBonus
+                                        });
+                                    newML = parseInt(OML[i]);
+                                    if(parseInt(fieldMLval)>parseInt(OML[i]))
+                                    {
+                                       newML = parseInt(fieldMLval);
+                                    }
+                                    setAttrs({
+                                            [fieldML]: newML
+                                        }); 
+                                }
+                                
+
+                        }
                 }
             }); 
            
