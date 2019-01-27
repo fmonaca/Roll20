@@ -25,7 +25,7 @@ I use a couple of macros to roll for awareness or other stuff (i.e. hearing, sme
 
 Aura
 
-!EML,[[(@{selected|aura}*?{Ease of Challenge|5})-((@{selected|inj_tot_h}*5)+(@{selected|Fatigue}*5))]],[[1d100]],skill,Eyesight Check,#@{selected|token_name}
+!EML,[[(@{selected|aura}*?{Ease of Challenge|5})-((@{selected|inj_tot_h}*5)+(@{selected|Fatigue}*5))]],[[1d100]],skill,Aura Check,#@{selected|token_name}
 
 Awareness
 
@@ -37,11 +37,11 @@ Eyesight
 
 Hearing
 
-!EML,[[(@{selected|hearing}*?{Ease of Challenge|5})-((@{selected|inj_tot_h}*5)+(@{selected|Fatigue}*5))]],[[1d100]],skill,Eyesight Check,#@{selected|token_name}
+!EML,[[(@{selected|hearing}*?{Ease of Challenge|5})-((@{selected|inj_tot_h}*5)+(@{selected|Fatigue}*5))]],[[1d100]],skill,Hearing Check,#@{selected|token_name}
 
 Smell
 
-!EML,[[(@{selected|smell}*?{Ease of Challenge|5})-((@{selected|inj_tot_h}*5)+(@{selected|Fatigue}*5))]],[[1d100]],skill,Eyesight Check,#@{selected|token_name}
+!EML,[[(@{selected|smell}*?{Ease of Challenge|5})-((@{selected|inj_tot_h}*5)+(@{selected|Fatigue}*5))]],[[1d100]],skill,Smell Check,#@{selected|token_name}
 
 Stamina
 
