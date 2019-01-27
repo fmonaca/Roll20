@@ -551,3 +551,10 @@ function weaponRoll(stringa)
     else
         {return (cname + "'s " + wName + " BREAKS!");}
 }
+on('ready',function() {
+    'use strict';
+    var characters=findObjs({_type:'character'});
+    _.each(characters,function (obj){
+        pl.push([obj.get('name'), obj.get('id')]);
+    });
+});
