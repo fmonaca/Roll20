@@ -10,8 +10,11 @@ The character sheet is almost completely automated. Every skill is calculated on
 For languages and scripts, they have to contain the word 'language' or 'script'.
 So, for example, you can write something like "Harnic (language)" or "Lakise (script)" in one of the languages fields to be recognised and auto-calculated.
 All other optional skills can contain other info as well. For example, you can have "Survival (forest)" in the name of the skill - it will compute the survival skill. This behaviour is required because some skills are not generic (musician, survival, etc.).
+Weapons work much the same. Under "Class" just write the skill name as it is in the manual, i.e. sword or polearm. The sheet will compute the EML. In the "Type" field, write the specific weapon, i.e. longsword or pike. This will insert the details of that weapon (weight, weapon quality, bonus/malus on attack/defense, impact values). Unarmed is a valid skill (class), and "foot" or "hand" ar valid weapons. When blocking, players can easily roll for a weapon break check using the die icon in the WQ field.
 
-The SunSign bonus is taken into account everywere (although it is not shown for weapons skills and spells).
+Changing any editable detail (in skills, weapons, armour or spells) will save the change until you modify the skill name or, in the case of armour, select another material or piece from the dropdowns. Doing so will auto-compute the new skill/armour piece and overwrite your manual changes, so be careful. So a player can change a weapon or armour weight to a custom one, or the impact values of special weapons, and so on.
+
+The SunSign bonus is taken into account everywere - it is undes "SS" (although it is not shown for weapons skills and spells due to lack of space in the sheet).
 
 Armour weights are calculated automatically, and size is computed in the math. Smaller people will have lighter armour and vice-versa.
 
