@@ -422,6 +422,8 @@ on('chat:message', function(msg_orig) {
             for(var n=0; n<pl.length;n++){
                 if (pl[n][0] == msg.who)
                     pid += pl[n][1];
+                else
+                    pid = msg.who;
             }
         }
 
