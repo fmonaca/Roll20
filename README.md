@@ -25,6 +25,8 @@ Armour weights are calculated automatically, and size is computed in the math. S
 
 I adopted some house rules, so some of the skill rolls are not shown to the players, but whispered to the GM instead. The rolling player will only receive a message that confirms the roll has been made. The list of the skills and stats that have this behaviour is in harncombat.js (the array is called hiddenSkillsList). Every "normal" skill that a player rolls shows only the level of success or failure to everyone (including the player rolling). This is to avoid every player seeing the exact skill total of everyone else. Only the GM sees the total rolled on 1d100, and the EML of the specific skill (the player rolling sees it on his/her character sheet anyway). The GM can choose to send in a whisper the results of the 1d100 to the player that rolled it. This is done via a button that shows on the GM chat on every skill check made by the players.
 
+Spells are seen only by the player casting them and the GM. They show success rate, roll/EML and cant, gestures and noise level that the player selected before rolling. Is up to the GM to describe, according to the cant and gestures level, what the character does (if visible at all). Casting spell (by a player) automatically causes fatigue to the character (CS = no fatigue, MS and MF = 1 fatigue, CS could cause 2-4 fatigue, depending on the specific failure level).
+
 The code is messy, as it has begun as a quick modification of the sheet using sheet workers because of players requests, and in time it accumulated dozens of changes, morphing into something else. I still have to find the courage to start from scratch to produce something neater.
 
 Macros
