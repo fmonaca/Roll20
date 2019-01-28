@@ -4,7 +4,7 @@ After a few iterations, I decided to use Rol20 API to customise the rolls.
 
 Now the sheet uses sheet workers and API to do the job.
 
-I used Aaron's excellent script TheAaronSheet to do some calculations on repeating fields.
+I used Aaron's excellent script TheAaronSheet to do some calculations on repeating fields (please note that the script is included in harnsheet.html).
 
 The character sheet is almost completely automated. Every skill is calculated on the fly (even the optional ones, but beware of the syntax - they have to be written correctly to be recognised). They are re-calculated if one of the statistics change. Also, the optional ones can contain other info, as long as the name of the skill is present.
 For languages and scripts, they have to contain the word 'language' or 'script'.
@@ -25,7 +25,7 @@ Armour weights are calculated automatically, and size is computed in the math. S
 
 I adopted some house rules, so some of the skill rolls are not shown to the players, but whispered to the GM instead. The rolling player will only receive a message that confirms the roll has been made. The list of the skills and stats that have this behaviour is in harncombat.js (the array is called hiddenSkillsList). Every "normal" skill that a player rolls shows only the level of success or failure to everyone (including the player rolling). This is to avoid every player seeing the exact skill total of everyone else. Only the GM sees the total rolled on 1d100, and the EML of the specific skill (the player rolling sees it on his/her character sheet anyway). The GM can choose to send in a whisper the results of the 1d100 to the player that rolled it. This is done via a button that shows on the GM chat on every skill check made by the players.
 
-Spells are seen only by the player casting them and the GM. They show success rate, roll/EML and cant, gestures and noise level that the player selected before rolling. Is up to the GM to describe, according to the cant and gestures level, what the character does (if visible at all). Casting a spell (by a player) automatically causes fatigue to the character (CS = no fatigue, MS and MF = 1 fatigue, CS could cause 2-4 fatigue, depending on the specific critical failure roll).
+Spells are seen only by the player casting them and the GM. They show success rate, roll/EML and cant, gestures and noise level that the player selected before rolling. Is up to the GM to describe, according to the cant and gestures level, what the character does (if visible at all). Casting a spell (by a player) automatically causes fatigue to the character (CS = no fatigue, MS and MF = 1 fatigue, CS could cause 2-4 fatigue, depending on the specific critical failure roll). If Fatigue is 4 or more, a whisper informs the GM (a shock roll is needed).
 
 I am using the optional rule that Rituals consume as many piety points as their level. The sheet will check if the priest has enough PP to cast them. If not, the caster (and the GM) will receive a message saying that there aren't enough piety points. Otherwise the ritual will be cast and the piety points subtracted from the total available.
 
@@ -33,7 +33,7 @@ The code is messy, as it has begun as a quick modification of the sheet using sh
 
 Macros
 
-I use a couple of macros to roll for awareness or other stuff (i.e. hearing, smell, aura, etc.) without the player knowing. Select the token representing the character sheet you want to roll on, and click on the token action macro (you have to create the macro and select the option "Show as token action?":
+I use a couple of macros to roll for awareness or other stuff (i.e. hearing, smell, aura, etc.) without the player knowing. Select the token representing the character sheet you want to roll on, and click on the token action macro (you have to create the macro and select the option "Show as token action?"):
 
 Aura
 
