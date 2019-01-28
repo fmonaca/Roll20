@@ -180,9 +180,17 @@ on('chat:message', function(msg_orig) {
                 },msg.content)
                 .value();
         }
+        var character = findObjs({ type: 'character', name: msg.who })[0];
+        if(character)
+        {
+            var fatigueAttr = findObjs({ type: 'attribute', characterid: character.id, name: 'Fatigue' })[0];
+            var fatigueLevel = Number(getAttrByName(character.id,'Fatigue'));
+        }
+
         var args = msg.content.split(",");
         var eml = parseInt(args[1]);
         var roll100 = parseInt(args[2]);
+        var spellFatigue;
         //log("roll100: "+roll100);
         var newChat = "";
         var critical = "";
@@ -244,22 +252,25 @@ on('chat:message', function(msg_orig) {
                 break;
         }
 
-        if((div5 == Math.round(div5) || (div5 != Math.round(div5) && roll100 <= 5)) && (roll100 <= eml && roll100 <= 95))
+        if((div5 == Math.round(div5) || (div5 != Math.round(div5) && roll100 <= si)) && (roll100 <= eml && roll100 <= 95))
             {
                 critical = "Critical ";
                 success = "Success!";
                 pref = "{{cs=";
+                spellFatigue = 0;
             }
             else if(div5 == Math.round(div5) && roll100 > eml)
             {
                     critical = "Critical ";
                     success = "Failure!";
                     pref = "{{cf=";
+                    spellFatigue = 1;
                     var failureRoll = randomInteger(100);
                     failureResults = "Failure Roll: " + failureRoll + "<br>";
                     if(failureRoll<=40)
                     {
-                        failureResults += "Form Failure - " + randomInteger(3) + " Fatigue Levels accumulated due to shock.";
+                        spellFatigue += randomInteger(3);
+                        failureResults += "Form Failure - " + spellFatigue + " Fatigue Levels accumulated due to shock.";
                     }
                     else if(failureRoll > 40 && failureRoll <= 50)
                     {
@@ -295,22 +306,38 @@ on('chat:message', function(msg_orig) {
                 critical = "Moderate ";
                 success = "Success.";
                 pref = "{{ms=";
+                spellFatigue = 1;
             }
             else if((div5 != Math.round(div5) && roll100 > eml) || roll100 > 95)
             {   
                 critical = "Moderate ";
                 success = "Failure.";
                 pref = "{{mf=";
+                spellFatigue = 1;
             }
         //log("Failure: "+failureResults);
-        newChat = newChat + "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} {{roll=" + roll100 + "}} {{eml=" + eml + "<br>" + cantDesc + ", " + gestDesc + ", " + noisDesc + "}} " + pref + critical + success + suff + " {{spellfailure=" + failureResults + "}} ";
+        if(character)
+        {
+            fatigueLevel += spellFatigue;
+            fatigueAttr.set('current', fatigueLevel);
+        }
+        var pid = "character|";
 
+        for(var n=0; n<pl.length;n++){
+            if (pl[n][0] == msg.who)
+                pid += pl[n][1];
+            else
+                pid = msg.who;
+        }
+
+        //newChat = newChat + "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} {{roll=" + roll100 + "}} {{eml=" + eml + "<br>" + cantDesc + ", " + gestDesc + ", " + noisDesc + "}} " + pref + critical + success + suff + " {{spellfailure=" + failureResults + "}} ";
+        newChat += "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} " + pref + critical + success + suff + " {{spellroll=" + roll100 + "}} {{eml=" + eml + "<br>" + cantDesc + ", " + gestDesc + ", " + noisDesc + "}} {{spellfailure=" + failureResults + "}}";
+        //gmChat = newChat + "&{template:harn} {{spellroll=" + roll100 + "}} {{eml=" + eml + "<br>" + cantDesc + ", " + gestDesc + ", " + noisDesc + "}}";
         var player = "/w " + msg.who + " " + newChat;
-   
         var master = "/w GM " + newChat;
-        sendChat(msg.who, master);
+        sendChat(pid, master);
         if(msg.who.indexOf("(GM)") < 0)
-            sendChat(msg.who, player);
+            sendChat(pid, player);
       
     }
     else if(msg_orig.type == "api" && msg_orig.content.indexOf("!HHEML") >= 0)
