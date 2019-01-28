@@ -184,7 +184,9 @@ on('chat:message', function(msg_orig) {
         if(character)
         {
             var fatigueAttr = findObjs({ type: 'attribute', characterid: character.id, name: 'Fatigue' })[0];
+            var pietyAttr = findObjs({ type: 'attribute', characterid: character.id, name: 'piety' })[0];
             var fatigueLevel = Number(getAttrByName(character.id,'Fatigue'));
+            var pietyLevel = Number(getAttrByName(character.id,'piety'));
         }
 
         var args = msg.content.split(",");
@@ -203,6 +205,7 @@ on('chat:message', function(msg_orig) {
         var cantDesc;
         var gestDesc;
         var noisDesc;
+        var allowedToCast = true;
         switch (Number(args[6]))
         {
             case -10:
@@ -318,8 +321,26 @@ on('chat:message', function(msg_orig) {
         //log("Failure: "+failureResults);
         if(character)
         {
-            fatigueLevel += spellFatigue;
-            fatigueAttr.set('current', fatigueLevel);
+            if(args[3].toLowerCase() == "rit")
+            {
+                pietyLevel -= Number(args[9]);
+                if(pietyLevel<0)
+                {
+                    pietyLevel += Number(args[9]);
+                    allowedToCast = false;
+                }
+                else
+                {
+                    pietyAttr.set('current', pietyLevel);
+                }
+            }
+            else
+            {
+                fatigueLevel += spellFatigue;
+                fatigueAttr.set('current', fatigueLevel);
+                if (fatigueLevel>=4)
+                    sendChat("Auto Message", "/w GM Shock roll needed for " + msg.who + "!");
+            }
         }
         var pid = "character|";
 
@@ -330,8 +351,10 @@ on('chat:message', function(msg_orig) {
                 pid = msg.who;
         }
 
-        //newChat = newChat + "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} {{roll=" + roll100 + "}} {{eml=" + eml + "<br>" + cantDesc + ", " + gestDesc + ", " + noisDesc + "}} " + pref + critical + success + suff + " {{spellfailure=" + failureResults + "}} ";
-        newChat += "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} " + pref + critical + success + suff + " {{spellroll=" + roll100 + "}} {{eml=" + eml + "<br>" + cantDesc + ", " + gestDesc + ", " + noisDesc + "}} {{spellfailure=" + failureResults + "}}";
+        if(allowedToCast)
+            newChat += "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} " + pref + critical + success + suff + " {{spellroll=" + roll100 + "}} {{eml=" + eml + "<br>" + cantDesc + ", " + gestDesc + ", " + noisDesc + "}} {{spellfailure=" + failureResults + "}}";
+        else
+            newChat += "Not enough Piety Points to perform the Ritual!";
         //gmChat = newChat + "&{template:harn} {{spellroll=" + roll100 + "}} {{eml=" + eml + "<br>" + cantDesc + ", " + gestDesc + ", " + noisDesc + "}}";
         var player = "/w " + msg.who + " " + newChat;
         var master = "/w GM " + newChat;
