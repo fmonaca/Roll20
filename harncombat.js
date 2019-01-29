@@ -352,7 +352,7 @@ on('chat:message', function(msg_orig) {
         }
 
         if(allowedToCast)
-            newChat += "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} " + pref + critical + success + suff + " {{spellroll=" + roll100 + "}} {{eml=" + eml + "<br>" + cantDesc + ", " + gestDesc + ", " + noisDesc + "}} {{spellfailure=" + failureResults + "}}";
+            newChat += "&{template:harn} {{" + args[3].toLowerCase() + "=" + args[4] + "}} " + pref + critical + success + suff + " {{spellroll=" + roll100 + "}} {{spelleml=" + eml + "<br>" + cantDesc + ", " + gestDesc + ", " + noisDesc + "}} {{spellfailure=" + failureResults + "}}";
         else
             newChat += "Not enough Piety Points to perform the Ritual!";
         //gmChat = newChat + "&{template:harn} {{spellroll=" + roll100 + "}} {{eml=" + eml + "<br>" + cantDesc + ", " + gestDesc + ", " + noisDesc + "}}";
