@@ -703,8 +703,8 @@
 
                         <td>AEML<input style=width:35px;font-weight:bold type="text" name="attr_weapon_AEML_rep" value='[[(((@{weapon_Skill_rep}+@{weapon_SS_rep_h})*@{weapon_ML_rep})+@{weapon_UG_rep}+@{weapon_AML_rep})-(@{P4})]]' disabled=true/></td>
                         <td>DEML<input style=width:35px;font-weight:bold  type="text" name="attr_weapon_DEML_rep" value='[[(((@{weapon_Skill_rep}+@{weapon_SS_rep_h})*@{weapon_ML_rep})+@{weapon_UG_rep}+@{weapon_DML_rep})-(@{P4})]]' disabled=true/></td>
-                        <td>Att<button style=width:35px type='roll' name='roll_skill' value='!HHEML,[[((@{weapon_Skill_rep}*@{weapon_ML_rep})+@{weapon_UG_rep}+@{weapon_AML_rep})-(@{P4})+?{bonus|0}]],[[1d100]],weapon,@{weapon_name_rep},@{weapon_class_rep}'></button></td>
-                        <td>Def<button style=width:35px type='roll' name='roll_skill' value='!HHEML,[[((@{weapon_Skill_rep}*@{weapon_ML_rep})+@{weapon_UG_rep}+@{weapon_DML_rep})-(@{P4})+?{bonus|0}]],[[1d100]],weapon,@{weapon_name_rep},@{weapon_class_rep}'></button></td>
+                        <td>Att<button style=width:35px type='roll' name='roll_skill' value='!HHEML,[[(((@{weapon_Skill_rep}+@{weapon_SS_rep_h})*@{weapon_ML_rep})+@{weapon_UG_rep}+@{weapon_AML_rep})-(@{P4})+?{bonus|0}]],[[1d100]],weapon,@{weapon_name_rep},@{weapon_class_rep}'></button></td>
+                        <td>Def<button style=width:35px type='roll' name='roll_skill' value='!HHEML,[[(((@{weapon_Skill_rep}+@{weapon_SS_rep_h})*@{weapon_ML_rep})+@{weapon_UG_rep}+@{weapon_DML_rep})-(@{P4})+?{bonus|0}]],[[1d100]],weapon,@{weapon_name_rep},@{weapon_class_rep}'></button></td>
                         <td>E<input style=width:15px type="radio" name="attr_weapon_equipped" value='e' title="Equipped/Carried"/><br>N<input style=width:15px type="radio" name="attr_weapon_equipped" value='n' title="Non equipped" checked="true"/></td>
 
 
