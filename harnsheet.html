@@ -122,7 +122,7 @@
                     <td style="font-weight: bold;">Strength<input style=width:30px;font-weight:bold  type="text" name="attr_strength" /><button type='roll' name='roll_skill' value='!HHEML,[[(@{strength}*?{Ease of Challenge|5})-((@{inj_tot_h}*5)+(@{Fatigue}*5)+((round((round((@{armour_wt_h}+@{weapons_tot_h}+@{gen_equip_wt_h}) / round(((@{CS2sb}*@{CS2ml})+@{CS2ug})/5)))/@{ridingwalking}))*5))]],[[1d100,]],skill,Strength Check,Attributes'></button></td>
                     <td style="font-weight: bold;">Stamina<input style=width:30px;font-weight:bold  type="text" name="attr_stamina" /><button type='roll' name='roll_skill' value='!HHEML,[[(@{stamina}*?{Ease of Challenge|5})-((@{inj_tot_h}*5)+(@{Fatigue}*5)+((round((round((@{armour_wt_h}+@{weapons_tot_h}+@{gen_equip_wt_h}) / round(((@{CS2sb}*@{CS2ml})+@{CS2ug})/5)))/@{ridingwalking}))*5))]],[[1d100]],skill,Stamina Check,Attributes'></button></td>
                     <td style="font-weight: bold;">Dexterity<input style=width:30px;font-weight:bold  type="text" name="attr_dexterity" /><button type='roll' name='roll_skill' value='!HHEML,[[(@{dexterity}*?{Ease of Challenge|5})-((@{inj_tot_h}*5)+(@{Fatigue}*5)+((round((round((@{armour_wt_h}+@{weapons_tot_h}+@{gen_equip_wt_h}) / round(((@{CS2sb}*@{CS2ml})+@{CS2ug})/5)))/@{ridingwalking}))*5))]],[[1d100]],skill,Dexterity Check,Attributes'></button></td>
-                    <td style="font-weight: bold;">Agility<input style=width:30px;font-weight:bold  type="text" name="attr_agility" /><button type='roll' name='roll_skill' value='!HHEML,[[(@{agility}*?{Ease of Challenge|5})-((@{inj_tot_h}*5)+(@{Fatigue}*5)+((round((round((@{armour_wt_h}+@{weapons_tot_h}+@{gen_equip_wt_h}) / round(((@{CS2sb}*@{CS2ml})+@{CS2ug})/5)))/@{ridingwalking}))*5))]],[[1d100]],skill,Agility Check,Attributes'></button></td>
+                    <td style="font-weight: bold;">Agility<input style=width:30px;font-weight:bold  type="text" name="attr_agility" /><button type='roll' name='roll_skill' value='!HHEML,[[(@{agility}*?{Ease of Challenge|5})-((@{inj_tot_h}*5)+(@{3}*5)+((round((round((@{armour_wt_h}+@{weapons_tot_h}+@{gen_equip_wt_h}) / round(((@{CS2sb}*@{CS2ml})+@{CS2ug})/5)))/@{ridingwalking}))*5))]],[[1d100]],skill,Agility Check,Attributes'></button></td>
                     <td style="font-weight: bold;">Eyesight<input style=width:30px;font-weight:bold  type="text" name="attr_eyesight" /><button type='roll' name='roll_skill' value='!HHEML,[[(@{eyesight}*?{Ease of Challenge|5})-((@{inj_tot_h}*5)+(@{Fatigue}*5))]],[[1d100]],skill,Eyesight Check,Attributes'></button></td>
                     <td style="font-weight: bold;">Hearing<input style=width:30px;font-weight:bold  type="text" name="attr_hearing" /><button type='roll' name='roll_skill' value='!HHEML,[[(@{hearing}*?{Ease of Challenge|5})-((@{inj_tot_h}*5)+(@{Fatigue}*5))]],[[1d100]],skill,Hearing Check,Attributes'></button></td>
                     <td style="font-weight: bold;">Smell<input style=width:30px;font-weight:bold  type="text" name="attr_smell" /><button type='roll' name='roll_skill' value='!HHEML,[[(@{smell}*?{Ease of Challenge|5})-((@{inj_tot_h}*5)+(@{Fatigue}*5))]],[[1d100]],skill,Smell Check,Attributes'></button></td>
@@ -637,7 +637,7 @@
                 <option value="CaL">Foot (L)</option>
                 <option value="CaR">Foot (R)</option>
             </select></td>
-            <td>Type <select style=width:80px name="attr_inj_type"><option value="Blunt">Blunt</option><option value="Edge">Edge</option><option value="Blunt">Puncture</option><option value="Blunt">Fire/Frost</option></select></td>
+            <td>Type <select style=width:80px name="attr_inj_type"><option value="Blunt">Blunt</option><option value="Edge">Edge</option><option value="Puncture">Puncture</option><option value="Fire/Frost">Fire/Frost</option></select></td>
             <td>Severity<select style=width:80px name="attr_inj_sev"><option value="Minor">Minor</option><option value="Serious">Serious</option><option value="Grevious">Grevious (B)</option></select></td>
 
             <td>Injury Level <select style=width:60px name="attr_inj_lvl">
@@ -655,8 +655,8 @@
                 <option value="H3">H3</option>
                 <option value="H4">H4</option>
                 <option value="H5">H5</option>
-                <option value="H4">H6</option>
-                <option value="H5">EE</option>
+                <option value="H6">H6</option>
+                <option value="EE">EE</option>
             </select></td>
             <td>Turn Received<input style=width:35px  type="text" name="attr_inj_turn" value="0" /></td>
 
