@@ -215,7 +215,7 @@
                 &nbsp;Riding <input type="radio" name="attr_ridingwalking" value="2" style="width:30px" />&nbsp;Walking <input type="radio" name="attr_ridingwalking" value="1" style="width:30px" checked="true" />
                  </td>                    
         </tr><tr>  
-            <td>Injury Levels<input style=width:35px type="text" name="attr_Injury" value='@{inj_tot_h}' disabled="true"/>&nbsp;Bloodloss<input style=width:50px  type="text" name="attr_InjuriesBL" value="0" />&nbsp;Fatigue Levels<input style=width:35px type="text" name="attr_Fatigue" value='0'/>&nbsp;Universal Penalty<input style=width:35px type="text" name="attr_P1" value='[[@{Injury}+@{Fatigue}]]' disabled/>&nbsp;Shock Roll<button type='roll' name='roll_skill' value="!HHEML,[[round(((@{CS2sb}*@{CS2ml})+@{CS2ug})/5)]],[[(@{inj_tot_h}+@{Fatigue})d6]],skill,Shock Roll Test,Attributes"></button>
+            <td>Injury Levels<input style=width:35px type="text" name="attr_Injury" value='@{inj_tot_h}' disabled="true"/>&nbsp;Bloodloss<input style=width:50px  type="text" name="attr_InjuriesBL" value="0" />&nbsp;Fatigue Levels<input style=width:35px type="text" name="attr_Fatigue" value='0'/>&nbsp;Universal Penalty<input style=width:35px type="text" name="attr_P1" value='[[@{Injury}+@{Fatigue}]]' disabled/>&nbsp;&nbsp;Healing Roll<button type='roll' name='roll_skill' value="!HHEML,[[(@{stamina}*?{Healing Level|5})]],[[1d100]],skill,Healing Roll Test,Attributes"></button>
            </td>
         </tr><tr>  
             <td style="font-weight:bold">
