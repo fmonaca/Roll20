@@ -1945,11 +1945,12 @@
                             var mats = values.repeating_loc_material.split(",");
                             var matType = mats[4];
                             var locType = locs[16];
-                            var wMultiplier = values.bodysize-6;
-                            if(wMultiplier == 0){
-                                wMultiplier = 1;
-                            }
-                            //console.log("=========================original weight: "+defaultW);
+                            var wMultiplier = Number(values.bodysize)-6;
+                            //if(wMultiplier == 0){
+                                //wMultiplier = 1;
+                            //}
+                            //console.log("=========================bodysize: "+Number(values.bodysize));
+                            //console.log("=========================original weight: "+weightMatrix[matType][locType]);
                             //console.log("=========================multiplier: "+((100+(wMultiplier*10))/100));
 
                             var adjWeight = Math.round((weightMatrix[matType][locType]*((100+(wMultiplier*10))/100))*10)/10;
@@ -2042,10 +2043,8 @@
                             var mats = values.repeating_loc_material.split(",");
                             var matType = mats[4];
                             var locType = locs[16];
-                            var wMultiplier = values.bodysize-6;
-                            if(wMultiplier == 0){
-                                wMultiplier = 1;
-                            }
+                            var wMultiplier = Number(values.bodysize)-6;
+                            
                             //console.log("=========================original weight: "+defaultW);
                             //console.log("=========================multiplier: "+((100+(wMultiplier*10))/100));
 
