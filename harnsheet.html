@@ -1937,7 +1937,7 @@
             on('change:repeating_loc:material remove:repeating_loc',function(){
                     
                     getAttrs([
-                        "repeating_loc_material", "repeating_loc_piecetype", "repeating_loc_ecn", "repeating_loc_b", "repeating_loc_e", "repeating_loc_p", "repeating_loc_f, bodysize" 
+                        "repeating_loc_material", "repeating_loc_piecetype", "repeating_loc_ecn", "repeating_loc_b", "repeating_loc_e", "repeating_loc_p", "repeating_loc_f", "bodysize", "repeating_loc_ecn", "repeating_loc_piece_wt"
 
                         ], function(values) {
                             //console.log("type: " + values.repeating_loc_piecetype);
@@ -1946,19 +1946,14 @@
                             var matType = mats[4];
                             var locType = locs[16];
                             var wMultiplier = Number(values.bodysize)-6;
-                            //if(wMultiplier == 0){
-                                //wMultiplier = 1;
-                            //}
-                            //console.log("=========================bodysize: "+Number(values.bodysize));
-                            //console.log("=========================original weight: "+weightMatrix[matType][locType]);
-                            //console.log("=========================multiplier: "+((100+(wMultiplier*10))/100));
+                            
 
                             var adjWeight = Math.round((weightMatrix[matType][locType]*((100+(wMultiplier*10))/100))*10)/10;
-                            //console.log("=========================final weight: "+adjWeight);
+                            
                             setAttrs({
                                         repeating_loc_piece_wt: adjWeight
                                     });
-                            //console.log("++++++++++++++++++++++++: " + locs[1]);
+                            
                             setAttrs({
                                         repeating_loc_b: mats[0],
                                         repeating_loc_e: mats[1],
@@ -2025,7 +2020,109 @@
                     
             });
 
-            on('change:repeating_loc:piecetype change:repeating_loc:b change:repeating_loc:e change:repeating_loc:p change:repeating_loc:f change:repeating_loc:piece_wt change:repeating_loc:ecn',function(){
+            on('change:repeating_loc:piece_wt',function(){
+                    
+                    getAttrs([
+                        "repeating_loc_ecn",
+                        "repeating_loc_piece_wt"
+                        ], function(values) {
+                            
+                            
+                            if(values.repeating_loc_ecn == 'n')
+                                {   setAttrs({
+                                        repeating_loc_piece_weight: 0,
+                                    });
+                                    TAS.repeatingSimpleSum('loc','piece_weight','armour_wt_h');
+                                     
+                                }
+                            else if(values.repeating_loc_ecn == 'c' || values.repeating_loc_ecn == 'e')
+                            {
+                                setAttrs({
+                                    repeating_loc_piece_weight: values.repeating_loc_piece_wt
+                                });
+                                TAS.repeatingSimpleSum('loc','piece_weight','armour_wt_h');
+
+                            }
+                            
+                    });
+                    
+            });
+
+            on('change:repeating_loc:b change:repeating_loc:e change:repeating_loc:p change:repeating_loc:f change:repeating_loc:ecn',function(){
+                    
+                    getAttrs([
+                        "repeating_loc_piecetype",
+                        "repeating_loc_material",
+                        "repeating_loc_b",
+                        "repeating_loc_e",
+                        "repeating_loc_p",
+                        "repeating_loc_f",
+                        "repeating_loc_ecn",
+                        "repeating_loc_piece_wt"
+                        ], function(values) {
+                            //console.log("type: " + values.repeating_loc_piecetype);
+                            var locs = values.repeating_loc_piecetype.split(",");
+                            var mats = values.repeating_loc_material.split(",");
+                            var matType = mats[4];
+                            var locType = locs[16];
+                            
+                            if(values.repeating_loc_ecn == 'n')
+                                {   
+                                    setAttrs({
+                                        repeating_loc_piece_weight: 0,
+                                    });
+                                    
+                                     for (var n=0; n<(locs.length-1); n++)
+                                        {
+                                            setAttrs({
+                                                ["repeating_loc_impact_b_"+[n]]: 0,
+                                                ["repeating_loc_impact_e_"+[n]]: 0,
+                                                ["repeating_loc_impact_p_"+[n]]: 0,
+                                                ["repeating_loc_impact_f_"+[n]]: 0
+                                            });
+                                        TAS.repeatingSimpleSum('loc','impact_b_'+[n],'armour_b_h_'+[n]);
+                                        TAS.repeatingSimpleSum('loc','impact_e_'+[n],'armour_e_h_'+[n]);
+                                        TAS.repeatingSimpleSum('loc','impact_p_'+[n],'armour_p_h_'+[n]);
+                                        TAS.repeatingSimpleSum('loc','impact_f_'+[n],'armour_f_h_'+[n]);
+                                        }
+                                }
+                            else if(values.repeating_loc_ecn == 'c' || values.repeating_loc_ecn == 'e')
+                            {
+                                    setAttrs({
+                                        repeating_loc_piece_weight: values.repeating_loc_piece_wt
+                                    });
+                                    for (var n=0; n<(locs.length-1); n++)
+                                    {
+                                        if(locs[n] == '1' && values.repeating_loc_ecn == 'e')
+                                        {   setAttrs({
+                                                ["repeating_loc_impact_b_"+[n]]: values.repeating_loc_b,
+                                                ["repeating_loc_impact_e_"+[n]]: values.repeating_loc_e,
+                                                ["repeating_loc_impact_p_"+[n]]: values.repeating_loc_p,
+                                                ["repeating_loc_impact_f_"+[n]]: values.repeating_loc_f
+                                            });
+                                        }
+                                        else
+                                        {
+                                            setAttrs({
+                                                ["repeating_loc_impact_b_"+[n]]: 0,
+                                                ["repeating_loc_impact_e_"+[n]]: 0,
+                                                ["repeating_loc_impact_p_"+[n]]: 0,
+                                                ["repeating_loc_impact_f_"+[n]]: 0
+                                            });
+                                        }
+                                        TAS.repeatingSimpleSum('loc','impact_b_'+[n],'armour_b_h_'+[n]);
+                                        TAS.repeatingSimpleSum('loc','impact_e_'+[n],'armour_e_h_'+[n]);
+                                        TAS.repeatingSimpleSum('loc','impact_p_'+[n],'armour_p_h_'+[n]);
+                                        TAS.repeatingSimpleSum('loc','impact_f_'+[n],'armour_f_h_'+[n]);
+                                    }
+                                
+                            }
+                        TAS.repeatingSimpleSum('loc','piece_weight','armour_wt_h');
+                    });
+                    
+            });
+
+            on('change:repeating_loc:piecetype',function(){
                     
                     getAttrs([
                         "repeating_loc_piecetype",
