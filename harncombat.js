@@ -596,7 +596,8 @@ function weaponRoll(stringa)
     var cname = args[1];
     var wq = parseInt(args[2]);
     var wName = args[3];
-    log("WQ: "+wq);
+    var modifier = args[4];
+    wq += Number(modifier);
     roll = randomInteger(6) + randomInteger(6) + randomInteger(6);
     if(wq >= roll)
         {return (cname + "'s " + wName + " withstands the strike!");}
